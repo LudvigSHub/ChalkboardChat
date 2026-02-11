@@ -1,0 +1,31 @@
+﻿DATA LAGER:
+DbContext AppDbContext AuthDbContext (IdentityDbContext)
+Migrations
+Modell klasser ex movie, Person, Produkt
+Repository klass
+SQL Kod
+
+BLL Applikationslager: (Applikationens hjärna)
+all affärslogik ex,
+Serviceklasser
+Interface IService
+DTO klasser 
+Valideringsregler
+API anrop
+
+UI Lager: Applikationens ansikte utåt
+Razor Pages
+OM MVC controller (ingen affärslogik)
+ViewModel klasser (om man vill ha flera objekt i en vy) 
+Anropar services i BLL
+ModelState 
+registrera services i Program.cs
+
+
+Packages:
+-	EntityFrameworkCore
+-	EntityFrameworkCore.Tools
+-	EntityFrameworkCore.Design
+-	EntityFrameworkCore.sqlserver
+-   Microsoft.AspNetCore.Identity.EntityFrameworkCore
+-   Microsoft.AspNetCore.Identity.UI
