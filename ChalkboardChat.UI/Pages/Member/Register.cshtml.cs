@@ -37,7 +37,7 @@ namespace ChalkboardChat.UI.Pages
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return RedirectToPage("/Member/Index");
+                return RedirectToPage("/Index");
             }
             foreach (var error in result.Errors)
             {
