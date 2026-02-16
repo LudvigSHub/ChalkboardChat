@@ -1,4 +1,3 @@
-using ChalkboardChat.DAL.Data;
 using ChalkboardChat.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,44 +5,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class MessagesModel : PageModel
 {
-    private readonly AppDbContext _context;
+    private readonly IMessageService _messageService;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public MessagesModel(AppDbContext context, UserManager<IdentityUser> userManager)
+    public MessagesModel(IMessageService messageService, UserManager<IdentityUser> userManager)
     {
-        _context = context;
+        _messageService = messageService;
         _userManager = userManager;
     }
 
     public List<MessageModel> Messages { get; set; }
+
     [BindProperty]
     public string NewMessage { get; set; }
 
-    public void OnGet()
+    public async Task OnGet()
     {
-        Messages = _context.Messages
-    .OrderBy(m => m.Date)
-    .ToList();
-
+        Messages = await _messageService.GetMessagesAsync();
     }
 
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPost()
     {
-        if (string.IsNullOrWhiteSpace(NewMessage))
-            return RedirectToPage();
-
-        var user = _userManager.GetUserAsync(User).Result;
-
-        var msg = new MessageModel
-        {
-            Message = NewMessage,
-            Username = user.UserName,
-            Date = DateTime.Now
-        };
-
-        _context.Messages.Add(msg);
-        _context.SaveChanges();
-
+        var userId = _userManager.GetUserId(User);
+        await _messageService.SendMessageAsync(userId, NewMessage);
         return RedirectToPage();
     }
 }
