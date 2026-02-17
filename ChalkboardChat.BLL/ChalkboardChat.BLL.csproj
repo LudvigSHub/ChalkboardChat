@@ -25,4 +25,8 @@
     <ProjectReference Include="..\ChalkboardChat.DAL\ChalkboardChat.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>
