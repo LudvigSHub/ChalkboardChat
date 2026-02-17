@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ChalkboardChat.BLL.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ChalkboardChat.BLL.Interfaces
 {
-    internal interface IMessageService
+    public interface IMessageService
     {
+        Task<List<MessageDto>> GetAllMessagesAsync();
+        Task CreateMessageAsync(CreateMessageDto dto);
     }
 }
