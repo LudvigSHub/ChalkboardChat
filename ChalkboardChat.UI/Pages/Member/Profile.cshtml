@@ -1,4 +1,26 @@
 ﻿@page
-@model ChalkboardChat.UI.Pages.Member.ProfileModel
-@{
-}
+@model ChalkboardChat.UI.Pages.Profile.IndexModel
+
+<h2>Change Username</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post" asp-page-handler="ChangeUsername">
+    <input asp-for="NewUsername" placeholder="New username" />
+    <button type="submit">Save</button>
+</form>
+
+<h2>Change Password</h2>
+
+<form method="post" asp-page-handler="ChangePassword">
+    <input asp-for="OldPassword" placeholder="Old password" type="password" />
+    <input asp-for="NewPassword" placeholder="New password" type="password" />
+    <input asp-for="ConfirmPassword" placeholder="Confirm new password" type="password" />
+    <button type="submit">Save</button>
+</form>
+
+<h2>Delete Account</h2>
+
+<form method="post" asp-page-handler="DeleteAccount">
+    <button type="submit" style="color:red;">Delete my account</button>
+</form>

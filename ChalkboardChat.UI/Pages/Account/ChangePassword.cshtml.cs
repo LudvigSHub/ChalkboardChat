@@ -19,6 +19,10 @@ public class ChangePasswordModel : PageModel
     [BindProperty]
     public string NewPassword { get; set; }
 
+    [BindProperty]
+    public string ConfirmPassword { get; set; }
+
+
     public async Task<IActionResult> OnPostAsync()
     {
         var userId = _userManager.GetUserId(User);

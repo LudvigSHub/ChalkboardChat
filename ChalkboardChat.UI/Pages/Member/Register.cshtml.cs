@@ -1,36 +1,39 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-
-public class RegisterModel : PageModel
+namespace ChalkboardChat.UI.Pages
 {
-    private readonly IUserService _userService;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using System.ComponentModel.DataAnnotations;
 
-    public RegisterModel(IUserService userService)
+    public class RegisterModel : PageModel
     {
-        _userService = userService;
-    }
+        private readonly IUserService _userService;
 
-    [BindProperty, Required]
-    public string Username { get; set; }
+        public RegisterModel(IUserService userService)
+        {
+            _userService = userService;
+        }
 
-    [BindProperty, Required]
-    public string Password { get; set; }
+        [BindProperty, Required]
+        public string Username { get; set; }
 
-    [BindProperty, Required, Compare(nameof(Password))]
-    public string ConfirmPassword { get; set; }
+        [BindProperty, Required]
+        public string Password { get; set; }
 
-    public async Task<IActionResult> OnPostAsync()
-    {
-        if (!ModelState.IsValid)
+        [BindProperty, Required, Compare(nameof(Password))]
+        public string ConfirmPassword { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+                return Page();
+
+            var result = await _userService.RegisterAsync(Username, Password);
+
+            if (result.Success)
+                return RedirectToPage("/Index");
+
+            ModelState.AddModelError(string.Empty, result.ErrorMessage);
             return Page();
-
-        var result = await _userService.RegisterAsync(Username, Password);
-
-        if (result.Success)
-            return RedirectToPage("/Index");
-
-        ModelState.AddModelError(string.Empty, result.ErrorMessage);
-        return Page();
+        }
     }
 }
