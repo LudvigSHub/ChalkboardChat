@@ -16,7 +16,7 @@ namespace ChalkboardChat.DAL.Repositories
             _context = context;
         }
 
-        public async Task<List<MessageModel>> GetLatestAsync()
+        public async Task<List<MessageModel>> GetAllAsync()
         {
             return await _context.Messages
                 .OrderByDescending(m => m.Date)

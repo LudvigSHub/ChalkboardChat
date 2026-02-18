@@ -7,7 +7,7 @@ namespace ChalkboardChat.DAL.Repositories
 {
     public interface IMessageRepository
     {
-        Task<List<MessageModel>> GetLatestAsync();
+        Task<List<MessageModel>> GetAllAsync();
         Task AddAsync(MessageModel message);
         Task SaveChangesAsync();
     }
