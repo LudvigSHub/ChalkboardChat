@@ -1,5 +1,6 @@
 ﻿using ChalkboardChat.BLL.DTOs;
 using ChalkboardChat.BLL.Interfaces;
+using ChalkboardChat.DAL.Models;
 using ChalkboardChat.DAL.Repositories;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace ChalkboardChat.BLL.Services
             if (string.IsNullOrWhiteSpace(dto.Username))
                 throw new ArgumentException("Username is required");
 
-            var message = new Message
+            var message = new MessageModel
             {
                 Date = DateTime.UtcNow,
                 Message = dto.Message,
@@ -51,6 +52,7 @@ namespace ChalkboardChat.BLL.Services
             };
 
             await _repository.AddAsync(message);
+            await _repository.SaveChangesAsync();
         }
     }
 }
