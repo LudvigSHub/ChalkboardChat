@@ -4,7 +4,9 @@ using System.Text;
 
 namespace ChalkboardChat.BLL.DTOs
 {
-    internal class UpdateUserDto
+    public class UpdateUserDto
     {
+        public string UserId { get; set; } = string.Empty;
+        public string NewUsername { get; set; } = string.Empty;
     }
 }
