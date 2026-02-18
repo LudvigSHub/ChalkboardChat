@@ -1,4 +1,102 @@
 ﻿@page
-@model ChalkboardChat.UI.Pages.Messages.IndexModel
-@{
+@model IndexModel
+
+<div class="chat-container">
+
+    <div id="messages" class="messages-list">
+        @foreach (var msg in Model.Messages)
+        {
+            var isMine = string.Equals(msg.Username, User.Identity.Name, StringComparison.OrdinalIgnoreCase);
+
+            <div class="message-bubble @(isMine ? "mine" : "theirs")">
+                <strong>@msg.Username</strong>
+                <p>@msg.Message</p>
+                <small>@msg.Date.ToString("HH:mm")</small>
+            </div>
+        }
+    </div>
+
+    <form method="post" class="message-input">
+        <textarea asp-for="NewMessage" placeholder="Write a message..." rows="2"></textarea>
+        <button type="submit">Send</button>
+    </form>
+
+</div>
+
+@section Scripts {
+    <script>
+        var msgDiv = document.getElementById("messages");
+        msgDiv.scrollTop = msgDiv.scrollHeight;
+    </script>
 }
+<style>
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 80vh;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .messages-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+        background: #f5f5f5;
+    }
+
+    .message-bubble {
+        background: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .message-input {
+        display: flex;
+        padding: 10px;
+        background: #fff;
+        border-top: 1px solid #ccc;
+    }
+
+    .message-input textarea {
+        flex: 1;
+        resize: none;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .message-input button {
+        margin-left: 10px;
+        padding: 10px 20px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 6px;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+        /* Andras meddelanden (vänster, grå) */
+        .message-bubble.theirs {
+            background: #ffffff;
+            margin-right: auto;
+        }
+
+        /* Dina meddelanden (höger, blå) */
+        .message-bubble.mine {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+</style>

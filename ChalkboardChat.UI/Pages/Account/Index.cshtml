@@ -1,0 +1,20 @@
+﻿@page
+@model AccountModel
+
+<h2>Konto</h2>
+
+<div class="account-container">
+
+    <a class="btn btn-primary" asp-page="/Account/ChangePassword">Byt lösenord</a>
+    <a class="btn btn-secondary" asp-page="/Account/ChangeUsername">Byt användarnamn</a>
+    <a class="btn btn-danger" asp-page="/Account/DeleteAccount">Ta bort konto</a>
+
+    <form method="post" asp-page-handler="Logout">
+        <button class="btn btn-outline-dark">Logga ut</button>
+    </form>
+    <form method="post" asp-page-handler="DeleteAccount" onsubmit="return confirm('Är du säker på att du vill ta bort ditt konto? Detta går inte att ångra.');">
+        <button class="btn btn-danger">Ta bort konto</button>
+    </form>
+
+
+</div>

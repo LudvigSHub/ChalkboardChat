@@ -1,0 +1,18 @@
+﻿@page
+@model ChangeUsernameModel
+
+<h2>Byt användarnamn</h2>
+
+<form method="post">
+    <div>
+        <label>Nytt användarnamn</label>
+        <input asp-for="NewUsername" />
+    </div>
+
+    <button type="submit">Spara</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}

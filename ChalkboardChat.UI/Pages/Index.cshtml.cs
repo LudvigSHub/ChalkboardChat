@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -7,11 +6,11 @@ namespace ChalkboardChat.UI.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IUserService _userService;
 
-        public IndexModel(SignInManager<IdentityUser> signInManager)
+        public IndexModel(IUserService userService)
         {
-            _signInManager = signInManager;
+            _userService = userService;
         }
 
         [BindProperty, Required]
@@ -26,16 +25,11 @@ namespace ChalkboardChat.UI.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var result = await _signInManager.PasswordSignInAsync(
-                Username,
-                Password,
-                false,
-                false
-            );
+            var result = await _userService.LoginAsync(Username, Password);
 
-            if (!result.Succeeded)
+            if (!result.Success)
             {
-                ModelState.AddModelError(string.Empty, "Invalid username or password");
+                ModelState.AddModelError(string.Empty, result.ErrorMessage);
                 return Page();
             }
 
