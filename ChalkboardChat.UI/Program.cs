@@ -1,4 +1,7 @@
+using ChalkboardChat.BLL.Interfaces;
+using ChalkboardChat.BLL.Services;
 using ChalkboardChat.DAL.Data;
+using ChalkboardChat.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +33,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 .AddEntityFrameworkStores<IdentityDbContext>();
 
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+
 
 var app = builder.Build();
 
